@@ -33,8 +33,9 @@ class Cell
 				ship.hit
 			end
 		end
-
+		
 		def render(reveal_ship = false)
+			# safe navigation
 			if reveal_ship && @ship&.sunk? == false && @fired_upon == false
 				p "S"
 			elsif @fired_upon == true
