@@ -18,15 +18,9 @@ class Cell
     end
 
     def fired_upon? 
-        if fired_upon == true
-        true
-       else
-        false
+         fired_upon == true
+        if empty? == false
+            ship.hit
        end
-    end
-
-    def fire_upon
-        ship.hit
-        @fired_upon = true
     end
 end
