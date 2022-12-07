@@ -27,7 +27,7 @@ class Cell
 
     def fire_upon
 			@fired_upon = true
-      if cell.empty? = false
+			if cell.empty? = false
 				ship.hit
 			end
 		end
