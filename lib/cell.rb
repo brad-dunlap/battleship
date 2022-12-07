@@ -33,7 +33,7 @@ class Cell
 				ship.hit
 			end
 		end
-
+		
 		def render(reveal_ship = false)
 			if reveal_ship == true && @ship.sunk? == false && @ship
 				p "S"
