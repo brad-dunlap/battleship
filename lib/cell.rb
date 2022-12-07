@@ -8,6 +8,7 @@ class Cell
         @coordinate = coordinate
         @ship = nil
         @fired_upon = false
+				
     end
 
     def empty?
@@ -33,20 +34,29 @@ class Cell
 			end
 		end
 
-		def render
-			if @ship
-				if @fired_upon == true && ship.sunk? == true
-					p "X"
+		def render(reveal_ship = false)
+			if reveal_ship == true && @ship.sunk? == false && @ship
+				p "S"
+			elsif @fired_upon == true
+				if @ship
+					if ship.sunk? == true
+						p "X"
+						else 
+						p "H"
+					end
 				else
-					p "H"
+					p "M"
 				end
 			else
-				if @fired_upon == true
-					p "M"
-				else
-					p "."
-				end
+				p "."
 			end
 		end
 	end
+
+
+	
+
+	
+
+		
 	
