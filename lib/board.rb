@@ -38,34 +38,55 @@ class Board
 	end
 
 	def valid_placement?(ship_type, array)
-		added_cells = []
-		array.each do |element|
-			added_cells << element.split.to_i.sum
-		end
+		letters = []
+		numbers = []
+		letters << array.map { |coordinate| coordinate.split('').first}
+		numbers << array.map { |coordinate| coordinate.split('').last}
 		
-		# # break A1 into two integers, += 1?
-		# if ship_type == "cruiser"
-		# 	if array.each_cons(3).all? { |a, b, c| a
-		# 		if array.length == 3
-		# 			true
-		# 		else 
-		# 			false
-		# 		end
-		# 	else false
-		# 	end
-# 		elsif ship_type == "submarine" 
-# 			if array.each_cons(2).all? { |a, b| a == array.last.first && b == array.last[1]}
-# 				if array.length == 2
-# 					true
-# 				else
-# 					false
-# 				end
-# 			else
-# 				false
-# 			end
-# 		else
-# 			false
-# 		end
-# 	end
-# end
-			
+		if ship_type = "cruiser"
+			if letters.length == 3
+				if letters.each_cons(3).all? {|a, b, c| a == b && b == c}
+					if numbers.each_cons(3).all? {|num1, num2, num3| num1 + 1 == num2 && num2 + 1 == num3}
+						true
+					else
+						false
+					end
+				elsif letters.each_cons(3).all? {|a, b, c| a.ord + 1 == b.ord && b.ord + 1 == c.ord}
+						if numbers.each_cons(3).all? {|num1, num2, num3| num1 == num2 && num2 == num3}
+						true
+					else
+						false
+					end
+				else
+					false
+				end
+			else
+				false
+			end
+		elsif ship_type = "submarine"
+			if letters.length == 2
+				if letters.each_cons(2).all? {|a, b| a == b}
+					if numbers.each_cons(2).all? {|num1, num2| num1 + 1 == num2}
+						true
+					else
+						false
+					end
+				elsif letters.each_cons(2).all? {|a, b| a.ord + 1 == b.ord}
+					if numbers.each_cons(2).all? {|num1, num2| num1 == num2}
+						true
+					else
+						false
+					end
+				else
+					false
+				end
+			else
+				false
+			end
+		else
+			false
+		end
+	end
+end
+		
+	
