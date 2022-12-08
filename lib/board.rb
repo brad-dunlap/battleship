@@ -38,12 +38,11 @@ class Board
 	end
 
 	def valid_placement?(ship_type, array)
-		letters = []
-		numbers = []
-		letters << array.map { |coordinate| coordinate.split('').first}
-		numbers << array.map { |coordinate| coordinate.split('').last}
+		letters = array.map { |coordinate| coordinate.split('').first.ord}
+		numbers = array.map { |coordinate| coordinate.split('').last.to_i}
 		
-		if ship_type = "cruiser"
+		if ship_type.name == "Cruiser"
+			
 			if letters.length == 3
 				if letters.each_cons(3).all? {|a, b, c| a == b && b == c}
 					if numbers.each_cons(3).all? {|num1, num2, num3| num1 + 1 == num2 && num2 + 1 == num3}
@@ -51,7 +50,7 @@ class Board
 					else
 						false
 					end
-				elsif letters.each_cons(3).all? {|a, b, c| a.ord + 1 == b.ord && b.ord + 1 == c.ord}
+				elsif letters.each_cons(3).all? {|a, b, c| a + 1 == b && b + 1 == c}
 						if numbers.each_cons(3).all? {|num1, num2, num3| num1 == num2 && num2 == num3}
 						true
 					else
@@ -63,7 +62,7 @@ class Board
 			else
 				false
 			end
-		elsif ship_type = "submarine"
+		elsif ship_type.name == "Submarine"
 			if letters.length == 2
 				if letters.each_cons(2).all? {|a, b| a == b}
 					if numbers.each_cons(2).all? {|num1, num2| num1 + 1 == num2}
@@ -71,7 +70,7 @@ class Board
 					else
 						false
 					end
-				elsif letters.each_cons(2).all? {|a, b| a.ord + 1 == b.ord}
+				elsif letters.each_cons(2).all? {|a, b| a + 1 == b}
 					if numbers.each_cons(2).all? {|num1, num2| num1 == num2}
 						true
 					else
