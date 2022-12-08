@@ -38,13 +38,34 @@ class Board
 	end
 
 	def valid_placement?(ship_type, array)
-		if ship_type == "cruiser" && array.length == 2
-			true
-		elsif
-			ship_type == "submarine" && array.length == 3
-			true
-		else
-			false
+		added_cells = []
+		array.each do |element|
+			added_cells << element.split.to_i.sum
 		end
-	end
-end
+		
+		# # break A1 into two integers, += 1?
+		# if ship_type == "cruiser"
+		# 	if array.each_cons(3).all? { |a, b, c| a
+		# 		if array.length == 3
+		# 			true
+		# 		else 
+		# 			false
+		# 		end
+		# 	else false
+		# 	end
+# 		elsif ship_type == "submarine" 
+# 			if array.each_cons(2).all? { |a, b| a == array.last.first && b == array.last[1]}
+# 				if array.length == 2
+# 					true
+# 				else
+# 					false
+# 				end
+# 			else
+# 				false
+# 			end
+# 		else
+# 			false
+# 		end
+# 	end
+# end
+			
