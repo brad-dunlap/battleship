@@ -25,7 +25,7 @@ require './lib/board'
 	let(:board) {Board.new(cells)}
 	let(:cruiser) {Ship.new("Cruiser", 3)}
 	let(:submarine) {Ship.new("Submarine", 2)}
-	
+
 	xit "initializes" do
     expect(board).to be_an_instance_of(Board)
     expect(board.cells).to eq(cells)
@@ -38,4 +38,10 @@ require './lib/board'
 		expect(board.valid_coordinate?("E1")).to eq(false)
 		expect(board.valid_coordinate?("A22")).to eq(false)
 	end
+
+	it "validates placements" do
+		expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
+		expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+	end
+
 end

@@ -36,4 +36,15 @@ class Board
 			false
 		end
 	end
+
+	def valid_placement?(ship_type, array)
+		if ship_type == "cruiser" && array.length == 2
+			true
+		elsif
+			ship_type == "submarine" && array.length == 3
+			true
+		else
+			false
+		end
+	end
 end
