@@ -57,6 +57,12 @@ require './lib/board'
 		board.place(submarine, ["A1", "B1"])
 		expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
 	end
+
+	it "renders board" do
+		board.place(cruiser, ["A1", "A2", "A3"])
+		expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+	end
+		
 end
 
 

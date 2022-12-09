@@ -92,6 +92,14 @@ class Board
 			end
 		end
 	end
+
+	def render
+		blank_board = @cells.map {|keys, value| @cells[keys].render}
+		space_board = blank_board.map {|dot| dot.gsub('.','. ')}
+		split_board = space_board.each_slice(4).to_a
+		# p "  1 2 3 4 \nA"
+	end
+
 end
 
 
