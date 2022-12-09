@@ -63,6 +63,7 @@ class Board
 				false
 			end
 		elsif ship_type.name == "Submarine"
+
 			if letters.length == 2
 				if letters.each_cons(2).all? {|a, b| a == b}
 					if numbers.each_cons(2).all? {|num1, num2| num1 + 1 == num2}
@@ -87,5 +88,15 @@ class Board
 		end
 	end
 end
+
+	# def place(ship_type, array)
+	# 	if board.valid_placement?(ship_type, array) == true
+	# 		require 'pry'; binding.pry
+	# 		if ship_type.name == "Cruiser"
+	# 		end
+	# 	end
+	# end
+
+
 		
 	

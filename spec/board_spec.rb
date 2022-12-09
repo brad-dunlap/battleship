@@ -52,5 +52,13 @@ require './lib/board'
 		expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
 		expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
 	end
-
 end
+
+	# xit "places a ship"
+	# board.place(cruiser, ["A1", "A2", "A3"])
+	# expect(cell_1 = board.cells["A1"]).to eq()
+	# expect(cell_2 = board.cells["A2"]).to eq()
+	# expect(cell_3 = board.cells["A3"]).to eq()
+	# end
+
+
