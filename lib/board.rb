@@ -87,15 +87,25 @@ class Board
 			false
 		end
 	end
-end
 
-	# def place(ship_type, array)
-	# 	if board.valid_placement?(ship_type, array) == true
-	# 		require 'pry'; binding.pry
-	# 		if ship_type.name == "Cruiser"
-	# 		end
-	# 	end
-	# end
+	def place(ship_type, array)
+		if valid_placement?(ship_type, array) == true
+			if ship_type.name == "Cruiser"
+				@cells.each do |key, value|
+					if key == array[0]
+						cell_1 = value
+					elsif key == array[1]
+						cell_2 = value
+					elsif key == array[2]
+						cell_3 = value
+					else
+						puts "invalid input"
+					end
+				end
+			end
+		end
+	end
+end
 
 
 		
