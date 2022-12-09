@@ -4,27 +4,11 @@ require './lib/cell'
 require './lib/board'
 
 	RSpec.describe do
-		cells = {
-			"A1" => Cell.new("A1"),
-			"A2" => Cell.new("A2"),
-			"A3" => Cell.new("A3"),
-			"A4" => Cell.new("A4"),
-			"B1" => Cell.new("B1"),
-			"B2" => Cell.new("B2"),
-			"B3" => Cell.new("B3"),
-			"B4" => Cell.new("B4"),
-			"C1" => Cell.new("C1"),
-			"C2" => Cell.new("C2"),
-			"C3" => Cell.new("C3"),
-			"C4" => Cell.new("C4"),
-			"D1" => Cell.new("D1"),
-			"D2" => Cell.new("D2"),
-			"D3" => Cell.new("D3"),
-			"D4" => Cell.new("D4")
-		}
-	let(:board) {Board.new(cells)}
+		
+	let(:board) {Board.new}
 	let(:cruiser) {Ship.new("Cruiser", 3)}
 	let(:submarine) {Ship.new("Submarine", 2)}
+	
 
 	xit "initializes" do
     	expect(board).to be_an_instance_of(Board)
@@ -55,9 +39,14 @@ require './lib/board'
 
 	it "places a ship" do
 		board.place(cruiser, ["A1", "A2", "A3"])
-		expect(cell_1 = board.cells["A1"]).to eq(cells["A1"])
-		expect(cell_2 = board.cells["A2"]).to eq(cells["A2"])
-		expect(cell_3 = board.cells["A3"]).to eq(cells["A3"])
+		cell_1 = board.cells["A1"]
+		cell_2 = board.cells["A2"]
+		cell_3 = board.cells["A3"]
+		require 'pry'; binding.pry
+
+		expect(cell_1.ship).to eq(cruiser)
+		expect(cell_2.ship).to eq(cruiser)
+		expect(cell_3.ship).to eq(cruiser)
 	end
 end
 

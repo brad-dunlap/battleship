@@ -3,11 +3,11 @@ require './lib/board'
 class Board
     attr_reader :cells
 
-    def initialize(cells)
-    	@cells = cells
-		end
+  def initialize
+    @cells = create_cells
+	end
 
-	def cells
+	def create_cells
 		{
 			"A1" => Cell.new("A1"),
 			"A2" => Cell.new("A2"),
