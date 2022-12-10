@@ -94,16 +94,18 @@ class Board
 	end
 
 	def render(reveal_ship = false)
-		if reveal_ship
-			# @cells.each_value.map {|cell| cell.render(true)}
+		if reveal_ship == true
+			@cells.each_value.map {|cell| cell.render(true)}
 			blank_board = @cells.each_value.map {|cell| cell.render(true)}
 			split_board = blank_board.each_slice(4).to_a
-			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join}\nB #{split_board[1].concat.join}\nC #{split_board[2].concat.join}\nD #{split_board[3].concat.join}\n"
-	
+			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join(" ")} \nB #{split_board[1].concat.join(" ")} \nC #{split_board[2].concat.join(" ")} \nD #{split_board[3].concat.join(" ")} \n"
+			
+		else
+			blank_board = @cells.each_value.map {|cell| cell.render}
+			split_board = blank_board.each_slice(4).to_a
+			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join(" ")} \nB #{split_board[1].concat.join(" ")} \nC #{split_board[2].concat.join(" ")} \nD #{split_board[3].concat.join(" ")} \n"
 		end
-		blank_board = @cells.each_value.map {|cell| cell.render}
-		split_board = blank_board.each_slice(4).to_a
-		rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join}\nB #{split_board[1].concat.join}\nC #{split_board[2].concat.join}\nD #{split_board[3].concat.join}\n"
+		
 	end
 
 end
