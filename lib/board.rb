@@ -93,11 +93,10 @@ class Board
 		end
 	end
 
-	def render
-		blank_board = @cells.map {|keys, value| @cells[keys].render}
-		space_board = blank_board.map {|dot| dot.gsub('.','. ')}
-		split_board = space_board.each_slice(4).to_a
-		# p "  1 2 3 4 \nA"
+	def render(reveal_ship = false)
+		blank_board = @cells.each_value.map {|cell| cell.render}
+		split_board = blank_board.each_slice(4).to_a
+		rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join}\nB #{split_board[1].concat.join}\nC #{split_board[2].concat.join}\nD #{split_board[3].concat.join}\n"
 	end
 
 end
