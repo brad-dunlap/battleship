@@ -15,8 +15,14 @@ RSpec.describe do
 	end
 	
 	it 'places computer ships' do
+		expect(game.computer_board.cells.values.map(&:ship).compact.empty?).to be true
 		game.computer_place
-		
 		expect(game.computer_board.cells.values.map(&:ship).compact.empty?).to be false
+	end
+
+	it 'places player ships' do
+		expect(game.player_board.cells.values.map(&:ship).compact.empty?).to be true
+		game.player_place
+		expect(game.player_board.cells.values.map(&:ship).compact.empty?).to be false
 	end
 end
