@@ -14,4 +14,9 @@ RSpec.describe do
 		expect(game).to be_an_instance_of(Game)
 	end
 	
+	it 'places computer ships' do
+		game.computer_place
+		
+		expect(game.computer_board.cells.values.map(&:ship).compact.empty?).to be false
+	end
 end

@@ -15,8 +15,32 @@ class Game
 		elsif text != "p"
 			"Invalid entry. Please enter p to play or q to quit"
 		else text == "p"
-			until computer_board.valid_placement?("Cruiser", 3) do @cells.sample(3)
-			require 'pry'; binding.pry
 		end
 	end
+
+	def computer_place
+		comp_cruiser = Ship.new("Cruiser", 3)
+		comp_sub = Ship.new("Submarine", 2)
+		loop do
+			cruiser_coords = []
+			until cruiser_coords.length == comp_cruiser.length do
+				cruiser_coords << @computer_board.cells.keys.sample
+			end	
+			if @computer_board.valid_placement?(comp_cruiser, cruiser_coords)
+				@computer_board.place(comp_cruiser, cruiser_coords)
+				break
+			end
+		end
+		loop do
+			sub_coords = []
+			until sub_coords.length == comp_sub.length do
+				sub_coords << @computer_board.cells.keys.sample
+			end	
+			if @computer_board.valid_placement?(comp_sub, sub_coords)
+				@computer_board.place(comp_sub, sub_coords)
+				break
+			end
+		end
+	end
+	
 end
