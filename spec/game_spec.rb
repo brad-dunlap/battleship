@@ -5,7 +5,7 @@ require './lib/board'
 require './lib/game'
 
 RSpec.describe do
-	let(:game) {Game.new("Danae")}
+	let(:game) {Game.new}
 	let(:board) {Board.new}
 	let(:cruiser) {Ship.new("Cruiser", 3)}
 	let(:submarine) {Ship.new("Submarine", 2)}

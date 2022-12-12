@@ -1,10 +1,8 @@
 require './lib/board'
 class Game 
-	attr_reader :player, :player2
-	def initialize(player, player2 = "computer")
-		@player = player
+	attr_reader :player_board, :computer_board
+	def initialize
 		@player_board = Board.new
-		@player2 = player2
 		@computer_board = Board.new
 	end
 
@@ -17,7 +15,7 @@ class Game
 		elsif text != "p"
 			"Invalid entry. Please enter p to play or q to quit"
 		else text == "p"
-			@computer_board.place(cruiser, @cells.sample(3))
+			until computer_board.valid_placement?("Cruiser", 3) do @cells.sample(3)
 			require 'pry'; binding.pry
 		end
 	end
