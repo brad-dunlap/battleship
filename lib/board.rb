@@ -33,9 +33,9 @@ class Board
 	end
 
 	def valid_placement?(ship_type, array)
+		
 		letters = array.map { |coordinate| coordinate.split('').first.ord}
 		numbers = array.map { |coordinate| coordinate.split('').last.to_i}
-		
 		if array.all? {|coordinate| @cells[coordinate].empty?}
 			if ship_type.name == "Cruiser"
 				if letters.length == 3
