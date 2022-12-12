@@ -33,9 +33,9 @@ class Board
 	end
 
 	def valid_placement?(ship_type, array)
+		
 		letters = array.map { |coordinate| coordinate.split('').first.ord}
 		numbers = array.map { |coordinate| coordinate.split('').last.to_i}
-		
 		if array.all? {|coordinate| @cells[coordinate].empty?}
 			if ship_type.name == "Cruiser"
 				if letters.length == 3
@@ -95,15 +95,16 @@ class Board
 
 	def render(reveal_ship = false)
 		if reveal_ship == true
-			@cells.each_value.map {|cell| cell.render(true)}
 			blank_board = @cells.each_value.map {|cell| cell.render(true)}
 			split_board = blank_board.each_slice(4).to_a
 			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join(" ")} \nB #{split_board[1].concat.join(" ")} \nC #{split_board[2].concat.join(" ")} \nD #{split_board[3].concat.join(" ")} \n"
+			puts rendered_board
 			
 		else
 			blank_board = @cells.each_value.map {|cell| cell.render}
 			split_board = blank_board.each_slice(4).to_a
 			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join(" ")} \nB #{split_board[1].concat.join(" ")} \nC #{split_board[2].concat.join(" ")} \nD #{split_board[3].concat.join(" ")} \n"
+			puts rendered_board
 		end
 		
 	end
