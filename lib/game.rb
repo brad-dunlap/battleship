@@ -1,10 +1,14 @@
 require './lib/board'
 
 class Game 
-	attr_reader :player_board, :computer_board
+	attr_reader :player_board, :computer_board, :comp_cruiser, :comp_sub, :player_cruiser, :player_sub
 	def initialize
 		@player_board = Board.new
 		@computer_board = Board.new
+		@comp_cruiser = Ship.new("Cruiser", 3)
+		@comp_sub = Ship.new("Submarine", 2)
+		@player_cruiser = Ship.new("Cruiser", 3)
+		@player_sub = Ship.new("Submarine", 2)
 	end
 	
 	def start_game		
@@ -36,25 +40,23 @@ class Game
 	end
 
 	def computer_place
-		comp_cruiser = Ship.new("Cruiser", 3)
-		comp_sub = Ship.new("Submarine", 2)
 		loop do
 			cruiser_coords = []
-			until cruiser_coords.length == comp_cruiser.length do
+			until cruiser_coords.length == @comp_cruiser.length do
 				cruiser_coords << @computer_board.cells.keys.sample
 			end	
-			if @computer_board.valid_placement?(comp_cruiser, cruiser_coords)
-				@computer_board.place(comp_cruiser, cruiser_coords)
+			if @computer_board.valid_placement?(@comp_cruiser, cruiser_coords)
+				@computer_board.place(@comp_cruiser, cruiser_coords)
 				break
 			end
 		end
 		loop do
 			sub_coords = []
-			until sub_coords.length == comp_sub.length do
+			until sub_coords.length == @comp_sub.length do
 				sub_coords << @computer_board.cells.keys.sample
 			end	
-			if @computer_board.valid_placement?(comp_sub, sub_coords)
-				@computer_board.place(comp_sub, sub_coords)
+			if @computer_board.valid_placement?(@comp_sub, sub_coords)
+				@computer_board.place(@comp_sub, sub_coords)
 				break
 			end
 		end
@@ -74,11 +76,10 @@ class Game
 	end
 
 	def player_place_cruiser
-		player_cruiser = Ship.new("Cruiser", 3)
 		loop do
 			input = gets.chomp.upcase.split
-			if @player_board.valid_placement?(player_cruiser, input)
-				@player_board.place(player_cruiser, input)
+			if @player_board.valid_placement?(@player_cruiser, input)
+				@player_board.place(@player_cruiser, input)
 				break
 			else 
 				p "Those coordinates are not valid. Please enter valid coordinates"
@@ -88,11 +89,10 @@ class Game
 
 	def player_place_sub
 		puts "Now enter the squares for the Submarine (2 consective spaces):\n>"
-		player_sub = Ship.new("Submarine", 2)
 		loop do
 			input = gets.chomp.upcase.split
-			if @player_board.valid_placement?(player_sub, input)
-				@player_board.place(player_sub, input)
+			if @player_board.valid_placement?(@player_sub, input)
+				@player_board.place(@player_sub, input)
 				break
 			else 
 				p "Those are invalid coordinates. Please try again:"
@@ -100,8 +100,16 @@ class Game
 		end
 	end
 
-	def valid_fire?(coord)
+	def valid_fire_on_comp?(coord)
 		if @computer_board.valid_coordinate?(coord) == true && @computer_board.cells[coord].fired_upon? == false
+			true
+		 else
+			false
+		end
+	end
+
+	def valid_fire_on_player?(coord)
+		if @player_board.valid_coordinate?(coord) == true && @player_board.cells[coord].fired_upon? == false
 			true
 		 else
 			false
@@ -119,16 +127,77 @@ class Game
 	end
 
 	def player_turn
+		sleep(1)
+		display_comp_board
+		display_player_board
+		sleep(1)
+		puts "Please select a coordinate to fire upon:"
 		loop do 
-			display_comp_board
-			display_player_board
-			puts "Please select a coordinate to fire upon:"
 			player_shot = gets.chomp.upcase
-			if valid_fire?(player_shot)
+			if valid_fire_on_comp?(player_shot)
 				@computer_board.cells[player_shot].fire_upon
+				if @computer_board.cells[player_shot].render == "X"
+					sleep(1)
+					puts "You sunk my ship!"
+				elsif @computer_board.cells[player_shot].render == "H"
+					sleep(1)
+					puts "You hit my ship!"
+				else 
+					puts "You missed! Haha!"
+					sleep(1)
+				end
 				break
 			else
+				sleep(1)
 				puts "Not a valid selection. Please try again:"
+			end
+		end
+		sleep(1)
+		display_comp_board
+		display_player_board
+	end
+
+	def computer_turn
+		sleep(1)
+		puts "Okay, my turn!"
+		sleep(1)
+		loop do
+			computer_choice = @player_board.cells.keys.sample
+			if valid_fire_on_player?(computer_choice)
+				@player_board.cells[computer_choice].fire_upon
+					if @player_board.cells[computer_choice].render == "X"
+						puts "I sunk your ship!"
+					elsif @player_board.cells[computer_choice].render == "H"
+						puts "I hit your ship!"
+					else 
+						puts "Oh no!!! I missed!!"
+					end
+				break
+			end
+		end
+	end
+
+	def winner?
+		if @comp_sub.sunk? && @comp_cruiser.sunk? 
+			puts "You win this time..."
+			true
+		elsif @player_sub.sunk? && @player_cruiser.sunk?
+			puts "I win! Try again next time LOSER! >:^{"
+			true
+		else
+			false
+		end
+	end
+
+	def turns
+		loop do
+			player_turn
+			if winner? == true
+			break
+			end
+			computer_turn
+			if winner? == true
+			break
 			end
 		end
 	end
