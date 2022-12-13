@@ -5,7 +5,6 @@ class Game
 	def initialize
 		@player_board = Board.new
 		@computer_board = Board.new
-		
 	end
 	
 	def start_game		
@@ -56,27 +55,32 @@ class Game
 		p "The Cruiser is three units long and the Submarine is two units long."
 		sleep(0.8)
 		puts "#{player_board.render}" +
-		"Enter the squares for the Cruiser (3 consecutive spaces):"
-	end
-	def player_cruiser_input 
-		player_cruiser_input = gets.chomp.split
+		"Enter the squares for the Cruiser (3 consecutive spaces):\n>"
 	end
 
-	def player_place_cruiser(input = player_cruiser_input)
-		
+	def player_place_cruiser
 		player_cruiser = Ship.new("Cruiser", 3)
-		player_sub = Ship.new("Submarine", 2)
-		cruiser_coords = []
-		cruiser_coords << input
-		
 		loop do
-			if @player_board.valid_placement?(player_cruiser, cruiser_coords.flatten)
-				@player_board.place(player_cruiser, cruiser_coords.flatten)
-			break
-			else
+			input = gets.chomp.upcase.split
+			if @player_board.valid_placement?(player_cruiser, input)
+				@player_board.place(player_cruiser, input)
+				break
+			else 
 				p "Those coordinates are not valid. Please enter valid coordinates"
-					cruiser_coords.clear	
-					player_place_cruiser(input = player_cruiser_input)
+			end
+		end
+	end
+
+	def player_place_sub
+		puts "Now enter the squares for the Submarine (2 consective spaces):\n>"
+		player_sub = Ship.new("Submarine", 2)
+		loop do
+			input = gets.chomp.upcase.split
+			if @player_board.valid_placement?(player_sub, input)
+				@player_board.place(player_sub, input)
+				break
+			else 
+				p "Those coordinates are not valid. Please enter valid coordinates"
 			end
 		end
 	end
