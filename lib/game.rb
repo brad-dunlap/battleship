@@ -20,7 +20,7 @@ class Game
 		"  |____/_/  |  |_|   |_| |_____|_____|____/|_| |_|___|_|\n" +
 		"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
 		"\n"
-		sleep(2)
+		sleep(1.5)
 		puts "Enter p to play. Enter q to quit."
 		loop do
 			text = gets.chomp
@@ -62,11 +62,11 @@ class Game
 
 	def prompt_player_to_place
 		p "I have laid out my ships on the grid."
-		sleep(0.8)
+		sleep(1)
 		p "You now need to lay out your two ships."
-		sleep(0.8)
+		sleep(1)
 		p "The Cruiser is three units long and the Submarine is two units long."
-		sleep(0.8)
+		sleep(1)
 		puts "#{player_board.render}" +
 		"Enter the squares for the Cruiser (3 consecutive spaces):\n>"
 	end
@@ -99,15 +99,27 @@ class Game
 	end
 
 	def valid_fire?(coord)
-		 if @computer_board.valid_coordinate?(coord) == true && @computer_board.cells[coord].fired_upon? == false
+		if @computer_board.valid_coordinate?(coord) == true && @computer_board.cells[coord].fired_upon? == false
 			true
 		 else
 			false
-		 end
+		end
+	end
+
+	def display_player_board
+		puts "---------Player Board----------"
+		puts "#{player_board.render(true)}" 
+	end
+
+	def display_comp_board
+		puts "---------Computer Board----------"
+		puts "#{computer_board.render}" 
 	end
 
 	def player_turn
-		loop do @computer_board.render
+		loop do 
+			display_comp_board
+			display_player_board
 			puts "Please select a coordinate to fire upon:"
 			player_shot = gets.chomp.upcase
 			if valid_fire?(player_shot)

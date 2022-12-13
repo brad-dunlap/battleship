@@ -36,7 +36,7 @@ class Board
 		
 		letters = array.map { |coordinate| coordinate.split('').first.ord}
 		numbers = array.map { |coordinate| coordinate.split('').last.to_i}
-		if array.all? {|coordinate| @cells[coordinate].empty?}
+		if array.all? {|coordinate| @cells.has_key?(coordinate) && @cells[coordinate].empty?}
 			if ship_type.name == "Cruiser"
 				if letters.length == 3
 					if letters.each_cons(3).all? {|a, b, c| a == b && b == c}
@@ -106,11 +106,5 @@ class Board
 			rendered_board = "  1 2 3 4 \nA #{split_board[0].concat.join(" ")} \nB #{split_board[1].concat.join(" ")} \nC #{split_board[2].concat.join(" ")} \nD #{split_board[3].concat.join(" ")} \n"
 			puts rendered_board
 		end
-		
 	end
-
-end
-
-
-		
-	
+end	

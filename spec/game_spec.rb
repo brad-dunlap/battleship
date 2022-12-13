@@ -4,7 +4,6 @@ require './lib/cell'
 require './lib/board'
 require './lib/game'
 
-
 RSpec.describe do
 	let(:game) {Game.new}
 	let(:board) {Board.new}
@@ -28,5 +27,10 @@ RSpec.describe do
 	it 'determines valid fire' do
 		expect(game.valid_fire?("A1")).to be true
 		expect(game.valid_fire?("A5")).to be false
+		game.computer_board.cells["A1"].fire_upon
+		expect(game.valid_fire?("A1")).to be false
 	end
+
+	it 'can fire upon ships' do
+		
 end
