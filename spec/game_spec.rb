@@ -3,7 +3,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/game'
-require '.battleship'
 
 RSpec.describe do
 	let(:game) {Game.new}
@@ -21,11 +20,17 @@ RSpec.describe do
 		expect(game.computer_board.cells.values.map(&:ship).compact.empty?).to be false
 	end
 
-	
-	it 'takes player input' do
-		expect(player_cruiser_input).to eq(cruiser_coords)
+	it 'places a player ship' do
 		expect(game.player_board.cells.values.map(&:ship).compact.empty?).to be true
-		game.player_place
-		expect(game.player_board.cells.values.map(&:ship).compact.empty?).to be false
 	end
+
+	it 'determines valid fire' do
+		expect(game.valid_fire?("A1")).to be true
+		expect(game.valid_fire?("A5")).to be false
+		game.computer_board.cells["A1"].fire_upon
+		expect(game.valid_fire?("A1")).to be false
+	end
+
+	it 'can fire upon ships' do
+		
 end

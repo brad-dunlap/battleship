@@ -35,29 +35,17 @@ class Cell
 		end
 		
 		def render(reveal_ship = false)
-			# safe navigation
-			if reveal_ship && @ship&.sunk? == false && @fired_upon == false
-				p "S"
-			elsif @fired_upon == true
-				if @ship
-					if ship.sunk? == true
-						p "X"
-						else 
-						p "H"
-					end
-				else
-					p "M"
-				end
-			else
-				p "."
+			if reveal_ship == true && empty? == false && fired_upon? == false
+					return "S"
+			elsif fired_upon? == true && empty? == true
+					return "M"
+			elsif fired_upon? == true && empty? == false && @ship.sunk? == false
+					return "H"
+			elsif fired_upon? == true && empty? == false && @ship.sunk? == true
+					return "X"
+			else fired_upon? == false
+					return "."
 			end
 		end
-	end
-
-
-	
-
-	
-
 		
-	
+	end
