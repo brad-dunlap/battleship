@@ -8,14 +8,27 @@ class Game
 	end
 	
 	def start_game		
+		puts "\n"+
+		"                          Welcome to\n" +
+		"\n"
+		sleep(1)
+		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+		"   ____    _  _____ _____ _     _____ ____  _   _ ___ ____\n" +
+		"  | __ )  / ||_   _|_   _| |   | ____/ ___|| | | |_ _|  _  \n" +
+		"  |  _   / _|  | |   | | | |   |  _|  ___  | |_| || || |_) |\n" +
+		"  | |_) / __|  | |   | | | |___| |___ ___) |  _  || ||  __/\n" +
+		"  |____/_/  |  |_|   |_| |_____|_____|____/|_| |_|___|_|\n" +
+		"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+		"\n"
+		sleep(2)
+		puts "Enter p to play. Enter q to quit."
 		loop do
-			puts "Welcome to BATTLESHIP
-			Enter p to play. Enter q to quit."
 			text = gets.chomp
 			if text == "p"
 				break
 			elsif text == "q"
-				puts "Come back when you're ready to actually play"
+				puts "I guess you are too scared to play against me"
+				exit(true)
 			else 
 				puts "Invalid entry. Please enter p to play or q to quit"
 			end
@@ -80,7 +93,28 @@ class Game
 				@player_board.place(player_sub, input)
 				break
 			else 
-				p "Those coordinates are not valid. Please enter valid coordinates"
+				p "Those are invalid coordinates. Please try again:"
+			end
+		end
+	end
+
+	def valid_fire?(coord)
+		 if @computer_board.valid_coordinate?(coord) == true && @computer_board.cells[coord].fired_upon? == false
+			true
+		 else
+			false
+		 end
+	end
+
+	def player_turn
+		loop do @computer_board.render
+			puts "Please select a coordinate to fire upon:"
+			player_shot = gets.chomp.upcase
+			if valid_fire?(player_shot)
+				@computer_board.cells[player_shot].fire_upon
+				break
+			else
+				puts "Not a valid selection. Please try again:"
 			end
 		end
 	end
