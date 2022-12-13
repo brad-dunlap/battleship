@@ -24,11 +24,18 @@ RSpec.describe do
 		expect(game.player_board.cells.values.map(&:ship).compact.empty?).to be true
 	end
 
-	it 'determines valid fire' do
+	it 'determines valid fire on computer' do
 		expect(game.valid_fire_on_comp?("A1")).to be true
 		expect(game.valid_fire_on_comp?("A5")).to be false
 		game.computer_board.cells["A1"].fire_upon
 		expect(game.valid_fire_on_comp?("A1")).to be false
+	end
+
+	it 'determines valid fire on player' do
+		expect(game.valid_fire_on_player?("A1")).to be true
+		expect(game.valid_fire_on_player?("A5")).to be false
+		game.player_board.cells["A1"].fire_upon
+		expect(game.valid_fire_on_player?("A1")).to be false
 	end
 
 	it 'can fire upon computer ships' do
@@ -45,7 +52,6 @@ RSpec.describe do
 	end
 
 	it 'can determine winner' do
-	
 		game.computer_place
 		allow(game).to receive(:gets).and_return("a2 a3 a4")
 		game.player_place_cruiser
@@ -58,7 +64,5 @@ RSpec.describe do
 		game.player_board.cells["B1"].fire_upon
 		game.player_board.cells["C1"].fire_upon
 		expect(game.winner?).to be true
-
-
 	end
 end
