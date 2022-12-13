@@ -10,3 +10,5 @@ game.prompt_player_to_place
 game.player_place_cruiser
 game.player_place_sub
 game.turns
+game.reveal_boards
+game.return_to_menu

@@ -126,6 +126,11 @@ class Game
 		puts "#{computer_board.render}" 
 	end
 
+	def display_comp_board_game_over
+		puts "---------Computer Board----------"
+		puts "#{computer_board.render(true)}" 
+	end
+
 	def player_turn
 		sleep(1)
 		display_comp_board
@@ -188,6 +193,19 @@ class Game
 			false
 		end
 	end
+
+	def return_to_menu
+		puts "Would you like to play again?"
+		sleep(2)
+		start_game
+	end
+
+	def reveal_boards
+		puts "Here is where I hid my ships!"
+		display_comp_board_game_over
+		display_player_board
+	end
+
 
 	def turns
 		loop do
