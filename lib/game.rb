@@ -61,12 +61,14 @@ class Game
 	end
 
 	def prompt_player_to_place
+		sleep(1)
 		p "I have laid out my ships on the grid."
 		sleep(1)
 		p "You now need to lay out your two ships."
 		sleep(1)
 		p "The Cruiser is three units long and the Submarine is two units long."
 		sleep(1)
+		p "--------Player Board-------->"
 		puts "#{player_board.render}" +
 		"Enter the squares for the Cruiser (3 consecutive spaces):\n>"
 	end
