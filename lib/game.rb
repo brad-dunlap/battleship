@@ -15,7 +15,7 @@ class Game
 		puts "\n"+
 		"                          Welcome to\n" +
 		"\n"
-		sleep(1)
+		sleep(0.8)
 		puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
 		"   ____    _  _____ _____ _     _____ ____  _   _ ___ ____\n" +
 		"  | __ )  / ||_   _|_   _| |   | ____/ ___|| | | |_ _|  _  \n" +
@@ -24,7 +24,7 @@ class Game
 		"  |____/_/  |  |_|   |_| |_____|_____|____/|_| |_|___|_|\n" +
 		"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
 		"\n"
-		sleep(1.5)
+		sleep(0.8)
 		puts "Enter p to play. Enter q to quit."
 		puts ""
 		loop do
@@ -64,16 +64,16 @@ class Game
 	end
 	
 	def prompt_player_to_place
-		sleep(1)
+		sleep(0.8)
 		puts "I have laid out my ships on the grid."
 		puts ""
-		sleep(1)
+		sleep(0.8)
 		puts "You now need to lay out your two ships."
 		puts ""
-		sleep(1)
+		sleep(0.8)
 		puts "The Cruiser is three units long and the Submarine is two units long."
 		puts ""
-		sleep(1)
+		sleep(0.8)
 		p "--------Player Board-------->"
 		puts "#{player_board.render}" +
 		"Enter the squares for the Cruiser (3 consecutive spaces):\n>"
@@ -141,10 +141,10 @@ class Game
 
 
 	def player_turn
-		sleep(1)
+		sleep(0.8)
 		display_comp_board
 		display_player_board
-		sleep(1)
+		sleep(0.8)
 		puts "Please select a coordinate to fire upon:"
 		puts ""
 		loop do 
@@ -152,35 +152,35 @@ class Game
 			if valid_fire_on_comp?(player_shot)
 				@computer_board.cells[player_shot].fire_upon
 				if @computer_board.cells[player_shot].render == "X"
-					sleep(1)
+					sleep(0.8)
 					puts "You sunk my ship!"
 					puts ""
 				elsif @computer_board.cells[player_shot].render == "H"
-					sleep(1)
+					sleep(0.8)
 					puts "You hit my ship!"
 					puts ""
 				else 
 					puts "You missed! Haha!"
 					puts ""
-					sleep(1)
+					sleep(0.8)
 				end
 				break
 			else
-				sleep(1)
+				sleep(0.8)
 				puts "Not a valid selection. Please try again:"
 				puts ""
 			end
 		end
-		sleep(1)
+		sleep(0.8)
 		display_comp_board
 		display_player_board
 	end
 
 	def computer_turn
-		sleep(1)
+		sleep(0.8)
 		puts "Okay, my turn!"
 		puts ""
-		sleep(1)
+		sleep(0.8)
 		loop do
 			computer_choice = @player_board.cells.keys.sample
 			if valid_fire_on_player?(computer_choice)
@@ -213,7 +213,7 @@ class Game
 			false
 		end
 	end
-
+	
 	def turns
 		loop do
 			player_turn
