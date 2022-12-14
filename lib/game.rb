@@ -26,6 +26,7 @@ class Game
 		"\n"
 		sleep(1.5)
 		puts "Enter p to play. Enter q to quit."
+		puts ""
 		loop do
 			text = gets.chomp
 			if text == "p"
@@ -61,20 +62,24 @@ class Game
 			end
 		end
 	end
-
+	
 	def prompt_player_to_place
 		sleep(1)
-		p "I have laid out my ships on the grid."
+		puts "I have laid out my ships on the grid."
+		puts ""
 		sleep(1)
-		p "You now need to lay out your two ships."
+		puts "You now need to lay out your two ships."
+		puts ""
 		sleep(1)
-		p "The Cruiser is three units long and the Submarine is two units long."
+		puts "The Cruiser is three units long and the Submarine is two units long."
+		puts ""
 		sleep(1)
 		p "--------Player Board-------->"
 		puts "#{player_board.render}" +
 		"Enter the squares for the Cruiser (3 consecutive spaces):\n>"
+		puts ""
 	end
-
+	
 	def player_place_cruiser
 		loop do
 			input = gets.chomp.upcase.split
@@ -83,12 +88,14 @@ class Game
 				break
 			else 
 				p "Those coordinates are not valid. Please enter valid coordinates"
+				puts ""
 			end
 		end
 	end
-
+	
 	def player_place_sub
 		puts "Now enter the squares for the Submarine (2 consective spaces):\n>"
+		puts ""
 		loop do
 			input = gets.chomp.upcase.split
 			if @player_board.valid_placement?(@player_sub, input)
@@ -96,8 +103,24 @@ class Game
 				break
 			else 
 				p "Those are invalid coordinates. Please try again:"
+				puts ""
 			end
 		end
+	end
+	
+	def display_player_board
+		puts "---------Player Board----------"
+		puts "#{player_board.render(true)}" 
+	end
+
+	def display_comp_board
+		puts "---------Computer Board----------"
+		puts "#{computer_board.render}" 
+	end
+
+	def display_comp_board_game_over
+		puts "---------Computer Board----------"
+		puts "#{computer_board.render(true)}" 
 	end
 
 	def valid_fire_on_comp?(coord)
@@ -116,20 +139,6 @@ class Game
 		end
 	end
 
-	def display_player_board
-		puts "---------Player Board----------"
-		puts "#{player_board.render(true)}" 
-	end
-
-	def display_comp_board
-		puts "---------Computer Board----------"
-		puts "#{computer_board.render}" 
-	end
-
-	def display_comp_board_game_over
-		puts "---------Computer Board----------"
-		puts "#{computer_board.render(true)}" 
-	end
 
 	def player_turn
 		sleep(1)
@@ -137,6 +146,7 @@ class Game
 		display_player_board
 		sleep(1)
 		puts "Please select a coordinate to fire upon:"
+		puts ""
 		loop do 
 			player_shot = gets.chomp.upcase
 			if valid_fire_on_comp?(player_shot)
@@ -144,17 +154,21 @@ class Game
 				if @computer_board.cells[player_shot].render == "X"
 					sleep(1)
 					puts "You sunk my ship!"
+					puts ""
 				elsif @computer_board.cells[player_shot].render == "H"
 					sleep(1)
 					puts "You hit my ship!"
+					puts ""
 				else 
 					puts "You missed! Haha!"
+					puts ""
 					sleep(1)
 				end
 				break
 			else
 				sleep(1)
 				puts "Not a valid selection. Please try again:"
+				puts ""
 			end
 		end
 		sleep(1)
@@ -165,6 +179,7 @@ class Game
 	def computer_turn
 		sleep(1)
 		puts "Okay, my turn!"
+		puts ""
 		sleep(1)
 		loop do
 			computer_choice = @player_board.cells.keys.sample
@@ -172,10 +187,13 @@ class Game
 				@player_board.cells[computer_choice].fire_upon
 					if @player_board.cells[computer_choice].render == "X"
 						puts "I sunk your ship!"
+						puts ""
 					elsif @player_board.cells[computer_choice].render == "H"
 						puts "I hit your ship!"
+						puts ""
 					else 
 						puts "Oh no!!! I missed!!"
+						puts ""
 					end
 				break
 			end
@@ -185,38 +203,41 @@ class Game
 	def winner?
 		if @comp_sub.sunk? && @comp_cruiser.sunk? 
 			puts "You win this time..."
+			puts ""
 			true
 		elsif @player_sub.sunk? && @player_cruiser.sunk?
 			puts "I win! Try again next time LOSER! >:^{"
+			puts ""
 			true
 		else
 			false
 		end
 	end
 
-	def return_to_menu
-		puts "Would you like to play again?"
-		sleep(2)
-		start_game
-	end
-
-	def reveal_boards
-		puts "Here is where I hid my ships!"
-		display_comp_board_game_over
-		display_player_board
-	end
-
-
 	def turns
 		loop do
 			player_turn
 			if winner? == true
-			break
+				break
 			end
 			computer_turn
 			if winner? == true
-			break
+				break
 			end
 		end
+	end
+
+	def reveal_boards
+		puts "Here is where I hid my ships!"
+		puts ""
+		display_comp_board_game_over
+		display_player_board
+	end
+
+	def return_to_menu
+		puts "Would you like to play again?"
+		puts ""
+		sleep(2)
+		start_game
 	end
 end
