@@ -1,9 +1,7 @@
-require 'RSpec'
-require './lib/ship'
-require './lib/cell'
+require './spec/spec_helper'
 
 RSpec.describe Cell do
-    let(:cell) {cell = Cell.new("B4")}
+    let(:cell) {Cell.new("B4")}
     let(:cruiser) { Ship.new("Cruiser", 3)}
 
     it 'initializes' do

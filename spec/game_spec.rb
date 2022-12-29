@@ -1,8 +1,5 @@
-require 'RSpec'
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
-require './lib/game'
+require './spec/spec_helper'
+
 
 RSpec.describe do
 	let(:game) {Game.new}

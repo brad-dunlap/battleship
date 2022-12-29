@@ -1,6 +1,5 @@
-require 'RSpec'
-require './lib/ship'
-require 'pry'
+require './spec/spec_helper'
+
 RSpec.describe Ship do
 		let(:cruiser) { Ship.new("Cruiser", 3)}
 
